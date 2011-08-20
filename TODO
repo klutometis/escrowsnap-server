@@ -1,0 +1,55 @@
+# -*- org -*-
+* TODO Database model
+  #+BEGIN_SRC sqlite :tangle escrowsnap.sql
+    PRAGMA foreign_keys = ON;
+    
+    DROP TABLE IF EXISTS project;
+    CREATE TABLE project (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           title TEXT,
+           address_1 TEXT,
+           address_2 TEXT,
+           city TEXT,
+           state TEXT,
+           zip TEXT
+           );
+    
+    DROP TABLE IF EXISTS person;
+    CREATE TABLE person (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           role_id INTEGER REFERENCES role(id)
+           ON UPDATE CASCADE ON DELETE CASCADE,
+           name TEXT,
+           company TEXT,
+           phone TEXT,
+           email TEXT
+           )
+    
+    DROP TABLE IF EXISTS role;
+    CREATE TABLE role (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           permission_id INTEGER REFERENCES permission(id)
+           ON UPDATE CASCADE ON DELETE CASCADE,
+           name TEXT
+           );
+    
+    DROP TABLE IF EXISTS permission;
+    CREATE TABLE permission (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           level TEXT
+           );
+    
+    DROP TABLE IF EXISTS task;
+    CREATE TABLE task (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           due_date INTEGER,
+           other_name INTEGER
+           );
+    
+    DROP TABLE IF EXISTS task_type;
+    CREATE TABLE task_type (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           name TEXT
+           );
+    
+  #+END_SRC
