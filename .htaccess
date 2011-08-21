@@ -1,10 +1,7 @@
+
 Options +ExecCGI +FollowSymLinks
 Order allow,deny
 Allow from all
-
 <Files ~ ".scm$">
   SetHandler fastcgi-script
 </Files>
-
-RewriteEngine on
-RewriteRule tasks/(.*) tasks.scm?project-id=$1
