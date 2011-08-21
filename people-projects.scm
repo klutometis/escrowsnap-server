@@ -5,7 +5,8 @@
      matchable
      sql-null
      call-with-query
-     json)
+     json
+     debug)
 
 (require-library sqlite3)
 (import (prefix sqlite3 sqlite3:))
@@ -18,11 +19,12 @@
    (call-with-dynamic-fastcgi-query
     (lambda (query)
       (display-content-type-&c. 'json)
-      (let ((owner-id (query-any query 'owner-id)))
+      (let* ((username (query-any query 'username))
+             (owner-id (sqlite3:first-result project-db "SELECT id FROM person WHERE username = ?;" username)))
         (json-write
          (sqlite3:map-row
-          (lambda (project-id address-1 address-2 city state zip)
-            `#((project-id . ,(void-if-sql-null project-id))
+          (lambda (id address-1 address-2 city state zip)
+            `#((id . ,(void-if-sql-null id))
                (address-1 . ,(void-if-sql-null address-1))
                (address-2 . ,(void-if-sql-null address-2))
                (city . ,(void-if-sql-null city))
