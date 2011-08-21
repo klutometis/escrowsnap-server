@@ -145,7 +145,7 @@ INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
        VALUES(4, 1, 6, '2011-09-04');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(5, 1, 6, '2011-09-11');
+       VALUES(5, 1, 6, '2011-09-12');
 
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
        VALUES(1, 2, 6, '2011-08-21');
@@ -156,7 +156,7 @@ INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
        VALUES(4, 2, 6, '2011-09-04');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(5, 2, 6, '2011-09-11');
+       VALUES(5, 2, 6, '2011-09-12');
 
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
        VALUES(1, 3, 6, '2011-08-21');
@@ -167,4 +167,4 @@ INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
        VALUES(4, 3, 6, '2011-09-04');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(5, 3, 6, '2011-09-11');
+       VALUES(5, 3, 6, '2011-09-12');

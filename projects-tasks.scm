@@ -21,7 +21,7 @@
       (let ((project-id (query-any query 'project-id)))
         (json-write
          (sqlite3:map-row
-          (lambda (task-type-id responsible-person-id due-date other-name)
+          (lambda (task-type-id responsible-person-id due-date done other-name)
             (match-let (((type-name type-description)
                          (sqlite3:first-row project-db "SELECT name, description FROM task_type WHERE id = ?;" task-type-id)))
               `#((type-id . ,(void-if-sql-null task-type-id))
@@ -29,7 +29,8 @@
                  (type-description . ,(void-if-sql-null type-description))
                  (responsible-person-id . ,(void-if-sql-null responsible-person-id))
                  (due-date . ,(void-if-sql-null due-date))
+                 (done . ,(void-if-sql-null done))
                  (other-name . ,(void-if-sql-null other-name)))))
           project-db
-          "SELECT task_type_id, responsible_person_id, due_date, other_name FROM task WHERE project_id = ?;"
+          "SELECT task_type_id, responsible_person_id, due_date, done, other_name FROM task WHERE project_id = ?;"
           project-id)))))))
