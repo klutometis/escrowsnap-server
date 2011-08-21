@@ -1,6 +1,18 @@
 #!/usr/bin/env chicken-scheme
 
-(use call-with-query json call-with-sqlite3-connection)
+;; (require 'escrowsnap)
+;; (import escrowsnap)
+(use call-with-sqlite3-connection
+     vector-lib
+     matchable
+     sql-null)
+(define (call-with-project-db procedure)
+  (call-with-sqlite3-connection
+   "project.db"
+   procedure))
+(use call-with-query json)
+(require-library sqlite3)
+(import (prefix sqlite3 sqlite3:))
 
 (call-with-dynamic-fastcgi-query
  (lambda (query)

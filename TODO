@@ -153,6 +153,22 @@
            VALUES(5, 1, 6, '2011-09-11');
     
   #+END_SRC
+* TODO Module
+  #+BEGIN_SRC scheme :tangle escrowsnap.scm
+    (module
+     escrowsnap
+     (call-with-project-db)
+    
+     (import scheme chicken)
+    
+     (use call-with-sqlite3-connection)
+    
+     (define (call-with-project-db procedure)
+       (call-with-sqlite3-connection
+        "project.db"
+        procedure)))
+    
+  #+END_SRC
 * TODO Serve projects.
   For a given persion, all the projects associated with them; for a
   given project, people and tasks associated with it; for a given
