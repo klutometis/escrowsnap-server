@@ -25,4 +25,4 @@
          "UPDATE task SET done = ? WHERE id = ?;"
          done
          id)
-        (json-write #t))))))
+        (json-write done))))))
