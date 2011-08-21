@@ -158,7 +158,8 @@
     INSERT INTO person (id, role_id, name, company, phone, email, username)
            VALUES(5, 5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com", "timothy");
     INSERT INTO person (id, role_id, name, company, phone, email, username)
-           VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "+13107394902", "pcd@pcd.la", "mary");
+           -- VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "+13107394902", "pcd@pcd.la", "mary");
+           VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "+16268172836", "pcd@pcd.la", "mary");
     INSERT INTO person (id, role_id, name, company, phone, email, username)
            VALUES(7, 7, "Julie C. Stephenson", "LocalTownhouses.com", "859-229-8849", "JulieCStephenson@teleworm.com", "julie");
     
@@ -475,7 +476,39 @@
   #+END_SRC
 * TODO Email
   #+BEGIN_SRC scheme :tangle email.scm :shebang #!/usr/bin/env chicken-scheme
+    (use posix debug ports)
+    
+    #;
     (define (send-email email)
-      (process "mail" "-s" "EscrowSnap Reminder"))
+      (with-input-from-file
+          "email.txt"
+        (let-values
+            (((in out process-id)
+              (process "mail" `("-s" "EscrowSnap Reminder" "-a" "email.png" ,email))))
+          #;(display (read-all in))
+          ;; (close-input-port in)
+          ;; (with-output-to-port
+          ;;     out
+          ;;   read-all)
+          (close-input-port in)
+          ;; (flush-output in)
+          (debug "oeuhtoeuhtn")
+          (with-output-to-port
+              out
+            read-all)
+          (flush-output out)
+          ;; (flush-output in)
+          )))
+    
+    (define (send-email email)
+      (let-values
+          (((in out process-id)
+            (process (format "mail -s \"EscrowSnap Reminder\" -a email.png ~a < email.txt" email))))
+        (debug (read out))
+        (close-input-port in)
+        (close-output-port out)
+        (debug process-id)))
+    
+    (send-email "pcd@pcd.la")
     
   #+END_SRC
