@@ -369,10 +369,13 @@
        (call-with-dynamic-fastcgi-query
         (lambda (query)
           (display-status-&c.)
-          (let ((id (query-any query 'id)))
+          (let* ((id (query-any query 'id))
+                 (done
+                  (sqlite3:first-result project-db "SELECT done FROM task WHERE id = ?;" id)))
             (sqlite3:execute
              project-db
-             "UPDATE task SET done = 1 WHERE id = ?;"
+             "UPDATE task SET done = not(?) WHERE id = ?;"
+             done
              id))))))
     
   #+END_SRC
