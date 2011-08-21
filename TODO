@@ -158,7 +158,7 @@
     INSERT INTO person (id, role_id, name, company, phone, email, username)
            VALUES(5, 5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com", "timothy");
     INSERT INTO person (id, role_id, name, company, phone, email, username)
-           VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "+16268172836", "MaryJDalton@teleworm.com", "mary");
+           VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "+13107394902", "pcd@pcd.la", "mary");
     INSERT INTO person (id, role_id, name, company, phone, email, username)
            VALUES(7, 7, "Julie C. Stephenson", "LocalTownhouses.com", "859-229-8849", "JulieCStephenson@teleworm.com", "julie");
     
@@ -181,26 +181,26 @@
            VALUES(5, 1, 6, '2011-09-11');
     
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(1, 2, 6, '2011-08-21');
+           VALUES(1, 2, 6, '2011-09-01');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(2, 2, 6, '2011-09-19');
+           VALUES(2, 2, 6, '2011-09-30');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(3, 2, 6, '2011-08-28');
+           VALUES(16, 2, 6, '2011-09-09');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(4, 2, 6, '2011-09-04');
+           VALUES(14, 2, 6, '2011-09-17');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(5, 2, 6, '2011-09-11');
+           VALUES(18, 2, 6, '2011-09-21');
     
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(1, 3, 6, '2011-08-21');
+           VALUES(1, 3, 6, '2011-10-21');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(2, 3, 6, '2011-09-19');
+           VALUES(2, 3, 6, '2011-11-19');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(3, 3, 6, '2011-08-28');
+           VALUES(10, 3, 6, '2011-10-28');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(4, 3, 6, '2011-09-04');
+           VALUES(7, 3, 6, '2011-10-04');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-           VALUES(5, 3, 6, '2011-09-11');
+           VALUES(6, 3, 6, '2011-10-11');
     
   #+END_SRC
 * TODO Module
@@ -380,6 +380,9 @@
          (Body . ,message))
        read-string))
     
+    (define (send-email email)
+      ())
+    
     (call-with-project-db
      (lambda (project-db)
        (call-with-dynamic-fastcgi-query
@@ -468,5 +471,11 @@
         (To . "+16268172836")
         (Body . "My shit wirklich dahin, freunds."))
       read-string))
+    
+  #+END_SRC
+* TODO Email
+  #+BEGIN_SRC scheme :tangle email.scm :shebang #!/usr/bin/env chicken-scheme
+    (define (send-email email)
+      (process "mail" ))
     
   #+END_SRC
