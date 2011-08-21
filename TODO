@@ -413,3 +413,23 @@
 
   =projects/<project-id>/tasks=, PUT to: =tasks/<task-id>= for
   updating.
+* TODO Twilio
+  #+BEGIN_SRC sh
+    curl -d From=+16262648573 -d To=+16268172836 -d Body='Harro, freunds!' \
+        https://AC1a9f4597513f08aa979147b8b8c89af5:41483eb10ccf96b2a88207a3d7d671f5@api.twilio.com/2010-04-01/Accounts/AC1a9f4597513f08aa979147b8b8c89af5/SMS/Messages
+  #+END_SRC
+
+  #+BEGIN_SRC scheme :tangle twilio.scm :shebang #!/usr/bin/env chicken-scheme
+    (use http-client intarweb uri-common)
+    
+    (display
+     (with-input-from-request
+      (make-request
+       method: 'POST
+       uri: (uri-reference "https://AC1a9f4597513f08aa979147b8b8c89af5:41483eb10ccf96b2a88207a3d7d671f5@api.twilio.com/2010-04-01/Accounts/AC1a9f4597513f08aa979147b8b8c89af5/SMS/Messages"))
+      '((From . "+16262648573")
+        (To . "+16268172836")
+        (Body . "My shit wirklich dahin, freunds."))
+      read-string))
+    
+  #+END_SRC
