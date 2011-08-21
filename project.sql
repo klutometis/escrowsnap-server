@@ -47,7 +47,7 @@ CREATE TABLE task (
        ON UPDATE CASCADE ON DELETE CASCADE,
        responsible_person_id INTEGER REFERENCES person(id)
        ON UPDATE CASCADE ON DELETE CASCADE,
-       due_date INTEGER,
+       due_date TEXT,
        other_name TEXT
        );
 
@@ -107,12 +107,12 @@ INSERT INTO project (creator_id, address_1, address_2, city, state, zip)
        VALUES(1, "234 S Tower Dr #2", "", "Beverly Hills", "CA", "90211");
 
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(1, 1, 1313902800);
+       VALUES(1, 1, 6, '2011-08-21');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(2, 1, 1316581200);
+       VALUES(2, 1, 6, '2011-09-18');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(3, 1, 1314507600);
+       VALUES(3, 1, 6, '2011-08-28');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(4, 1, 1315112400);
+       VALUES(4, 1, 6, '2011-09-04');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(5, 1, 1315717200);
+       VALUES(5, 1, 6, '2011-09-11');
