@@ -76,9 +76,9 @@ INSERT INTO role (id, permission_id, name) VALUES(7, 1, "Title Agent");
 INSERT INTO role (id, permission_id, name) VALUES(8, 1, "Other");
 
 INSERT INTO task_type (id, name, description)
-       VALUES(1, "Escrow Open Date", "Date on which the escrow starts.");
+       VALUES(1, "Open Escrow", "Date on which the escrow starts.");
 INSERT INTO task_type (id, name, description)
-       VALUES(2, "Escrow Period", "Period in which the deal is being finalized by the buyer and seller.");
+       VALUES(2, "Close Escrow", "Date on which the escrow ends.");
 INSERT INTO task_type (id, name, description)
        VALUES(3, "Appraisal Contingency Date", "Date by which the buyer must get an expert estimate of the value of their new home to opt out of the deal without penalty.");
 INSERT INTO task_type (id, name, description)

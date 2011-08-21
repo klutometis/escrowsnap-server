@@ -18,8 +18,7 @@
    (call-with-dynamic-fastcgi-query
     (lambda (query)
       (display-content-type-&c. 'json)
-      (let ((username (query-any query 'username))
-            (password (query-any query 'password)))
+      (let ((username (query-any query 'username)))
         (json-write
          (sqlite3:map-row
           (lambda (role-id name company phone email)

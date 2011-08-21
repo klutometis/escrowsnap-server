@@ -10,4 +10,4 @@ Allow from all
 RewriteEngine on
 RewriteRule tasks/(.*) tasks.scm?project-id=$1
 RewriteRule projects/(.*) projects.scm?owner-id=$1
-RewriteRule user/(.*):(.*) user.scm?username=$1&password=$2
+RewriteRule user/(.*) user.scm?username=$1
