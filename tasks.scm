@@ -13,9 +13,6 @@
 (include "escrowsnap.scm")
 (import escrowsnap)
 
-(define (void-if-sql-null datum)
-  (if (sql-null? datum) (void) datum))
-
 (call-with-project-db
  (lambda (project-db)
    (call-with-dynamic-fastcgi-query
