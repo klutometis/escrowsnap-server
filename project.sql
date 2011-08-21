@@ -45,6 +45,8 @@ CREATE TABLE task (
        ON UPDATE CASCADE ON DELETE CASCADE,
        project_id INTEGER REFERENCES project(id)
        ON UPDATE CASCADE ON DELETE CASCADE,
+       responsible_person_id INTEGER REFERENCES person(id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
        due_date INTEGER,
        other_name TEXT
        );
@@ -83,18 +85,34 @@ INSERT INTO task_type (id, name) VALUES(12, "Verification of Sales Price Date");
 INSERT INTO task_type (id, name) VALUES(13, "Finalize Closing Cost Date");
 INSERT INTO task_type (id, name) VALUES(14, "Finalize Credits Date");
 INSERT INTO task_type (id, name) VALUES(15, "Other Date");
+INSERT INTO task_type (id, name) VALUES(16, "Good Faith Deposit Date");
+INSERT INTO task_type (id, name) VALUES(17, "City Disclosures");
+INSERT INTO task_type (id, name) VALUES(18, "Termite Inspection Date");
+INSERT INTO task_type (id, name) VALUES(19, "Termite Repair Date");
 
-INSERT INTO person (role_id, name, company, phone, email) VALUES(1, "Ella J. Landry", "NoVacations.com", "479-648-7952", "EllaJLandry@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email) VALUES(2, "Ronny G. Rogers", "WallpaperDealer.com", "281-405-3229", "RonnyGRogers@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email) VALUES(3, "Joseph R. Cavitt", "ResidentialIndustry.com", "469-357-1049", "JosephRCavitt@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email) VALUES(4, "Patricia A. Madden", "CounselingMaterials.com", "PatriciaAMadden@teleworm.com", "419-916-7859");
-INSERT INTO person (role_id, name, company, phone, email) VALUES(5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email) VALUES(6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com");
+INSERT INTO person (role_id, name, company, phone, email)
+       VALUES(1, "Ella J. Landry", "NoVacations.com", "479-648-7952", "EllaJLandry@teleworm.com");
+INSERT INTO person (role_id, name, company, phone, email)
+       VALUES(2, "Ronny G. Rogers", "WallpaperDealer.com", "281-405-3229", "RonnyGRogers@teleworm.com");
+INSERT INTO person (role_id, name, company, phone, email)
+       VALUES(3, "Joseph R. Cavitt", "ResidentialIndustry.com", "469-357-1049", "JosephRCavitt@teleworm.com");
+INSERT INTO person (role_id, name, company, phone, email)
+       VALUES(4, "Patricia A. Madden", "CounselingMaterials.com", "PatriciaAMadden@teleworm.com", "419-916-7859");
+INSERT INTO person (role_id, name, company, phone, email)
+       VALUES(5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com");
+INSERT INTO person (role_id, name, company, phone, email)
+       VALUES(6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com");
 
-INSERT INTO project (creator_id, address_1, address_2, city, state, zip) VALUES(1, "234 S Tower Dr #2", "", "Beverly Hills", "CA", "90211");
+INSERT INTO project (creator_id, address_1, address_2, city, state, zip)
+       VALUES(1, "234 S Tower Dr #2", "", "Beverly Hills", "CA", "90211");
 
-INSERT INTO task (task_type_id, project_id, due_date) VALUES(1, 1, 1313902800);
-INSERT INTO task (task_type_id, project_id, due_date) VALUES(2, 1, 1316581200);
-INSERT INTO task (task_type_id, project_id, due_date) VALUES(3, 1, 1314507600);
-INSERT INTO task (task_type_id, project_id, due_date) VALUES(4, 1, 1315112400);
-INSERT INTO task (task_type_id, project_id, due_date) VALUES(5, 1, 1315717200);
+INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+       VALUES(1, 1, 1313902800);
+INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+       VALUES(2, 1, 1316581200);
+INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+       VALUES(3, 1, 1314507600);
+INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+       VALUES(4, 1, 1315112400);
+INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+       VALUES(5, 1, 1315717200);
