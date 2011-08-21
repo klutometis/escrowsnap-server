@@ -350,6 +350,33 @@
     
   #+END_SRC
 
+  #+BEGIN_SRC scheme :tangle tasks.scm :shebang #!/usr/bin/env chicken-scheme
+    (use call-with-sqlite3-connection
+         vector-lib
+         matchable
+         sql-null
+         call-with-query
+         json)
+    
+    (require-library sqlite3)
+    (import (prefix sqlite3 sqlite3:))
+    
+    (include "escrowsnap.scm")
+    (import escrowsnap)
+    
+    (call-with-project-db
+     (lambda (project-db)
+       (call-with-dynamic-fastcgi-query
+        (lambda (query)
+          (display-status-&c.)
+          (let ((id (query-any query 'id)))
+            (sqlite3:execute
+             project-db
+             "UPDATE task SET done = 1 WHERE id = ?;"
+             id))))))
+    
+  #+END_SRC
+
   #+BEGIN_SRC xml :tangle .htaccess
     Options +ExecCGI +FollowSymLinks
     Order allow,deny
@@ -363,6 +390,7 @@
     RewriteRule projects/([^/]+)/tasks projects-tasks.scm?project-id=$1
     RewriteRule people/([^/]+)/projects people-projects.scm?owner-id=$1
     RewriteRule people/([^/]+) people.scm?username=$1
+    RewriteRule tasks/([^/]+) tasks.scm?id=$1
     
   #+END_SRC
 
