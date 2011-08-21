@@ -56,7 +56,10 @@
            name TEXT,
            company TEXT,
            phone TEXT,
-           email TEXT
+           email TEXT,
+           username TEXT,
+           salt TEXT,
+           hash TEXT
            );
     
     DROP TABLE IF EXISTS project;
@@ -81,6 +84,7 @@
            responsible_person_id INTEGER REFERENCES person(id)
            ON UPDATE CASCADE ON DELETE CASCADE,
            due_date TEXT,
+           done INTEGER DEFAULT 0,
            other_name TEXT
            );
     
@@ -105,37 +109,37 @@
     INSERT INTO role (id, permission_id, name) VALUES(8, 1, "Other");
     
     INSERT INTO task_type (id, name, description)
-           VALUES(1, "Escrow Open Date", "Escrow Open Date");
+           VALUES(1, "Escrow Open Date", "Date on which the escrow starts.");
     INSERT INTO task_type (id, name, description)
-           VALUES(2, "Escrow Period", "Escrow Period");
+           VALUES(2, "Escrow Period", "Period in which the deal is being finalized by the buyer and seller.");
     INSERT INTO task_type (id, name, description)
-           VALUES(3, "Appraisal Contingency Date", "Appraisal Contingency Date");
+           VALUES(3, "Appraisal Contingency Date", "Date by which the buyer must get an expert estimate of the value of their new home to opt out of the deal without penalty.");
     INSERT INTO task_type (id, name, description)
-           VALUES(4, "Inspection Contingency Date", "Inspection Contingency Date");
+           VALUES(4, "Inspection Contingency Date", "Date by which the buyer must get an inspection of their new home to opt out of the deal without penalty.");
     INSERT INTO task_type (id, name, description)
-           VALUES(5, "Loan Contingency Date", "Loan Contingency Date");
+           VALUES(5, "Loan Contingency Date", "Date by which the buyer has to get a loan guarantee from their lending institution to opt out of the deal without penalty.");
     INSERT INTO task_type (id, name, description)
-           VALUES(6, "Home Owners Contingency Date", "Home Owners Contingency Date");
+           VALUES(6, "Home Owners Contingency Date", "Date by which the buyer has to obtain a homeowner’s insurance quote (aka “binder”) and forward it to the lender.");
     INSERT INTO task_type (id, name, description)
-           VALUES(7, "Buyer Escrow Package Date", "Buyer Escrow Package Date");
+           VALUES(7, "Buyer Escrow Package Date", "Date by which buyer should provide all relevant personal information to escrow");
     INSERT INTO task_type (id, name, description)
-           VALUES(8, "Seller Escrow Package Date", "Seller Escrow Package Date");
+           VALUES(8, "Seller Escrow Package Date", "Date by which the seller needs to provide ther personal information to escrow");
     INSERT INTO task_type (id, name, description)
-           VALUES(9, "Buyer Vesting Amendment Date", "Buyer Vesting Amendment Date");
+           VALUES(9, "Buyer Vesting Amendment Date", "Date by which the buyer provides escrow with the legal nature in which he will take title");
     INSERT INTO task_type (id, name, description)
            VALUES(10, "Complete Loan Application Date", "Complete Loan Application Date");
     INSERT INTO task_type (id, name, description)
-           VALUES(11, "Final Walkthrough Date", "Final Walkthrough Date");
+           VALUES(11, "Final Walkthrough Date", "Date by which the buyer confirms the condition of the property and does their final ""walk through"" with the buyer's agent");
     INSERT INTO task_type (id, name, description)
            VALUES(12, "Verification of Sales Price Date", "Verification of Sales Price Date");
     INSERT INTO task_type (id, name, description)
-           VALUES(13, "Finalize Closing Cost Date", "Finalize Closing Cost Date");
+           VALUES(13, "Finalize Closing Cost Date", "Date by which the buyer has to ");
     INSERT INTO task_type (id, name, description)
-           VALUES(14, "Finalize Credits Date", "Finalize Credits Date");
+           VALUES(14, "Finalize Credits Date", "Date by which the buyer has to ");
     INSERT INTO task_type (id, name, description)
            VALUES(15, "Other Date", "Other Date");
     INSERT INTO task_type (id, name, description)
-           VALUES(16, "Good Faith Deposit Date", "Good Faith Deposit Date");
+           VALUES(16, "Good Faith Deposit Date", "Occurs within 72 hours of acceptance of the deal - buyer deposits their money to escrow");
     INSERT INTO task_type (id, name, description)
            VALUES(17, "City Disclosures", "City Disclosures");
     INSERT INTO task_type (id, name, description)
@@ -143,23 +147,27 @@
     INSERT INTO task_type (id, name, description)
            VALUES(19, "Termite Repair Date", "Termite Repair Date");
     
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(1, 1, "Ella J. Landry", "NoVacations.com", "479-648-7952", "EllaJLandry@teleworm.com");
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(2, 2, "Ronny G. Rogers", "WallpaperDealer.com", "281-405-3229", "RonnyGRogers@teleworm.com");
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(3, 3, "Joseph R. Cavitt", "ResidentialIndustry.com", "469-357-1049", "JosephRCavitt@teleworm.com");
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(4, 4, "Patricia A. Madden", "CounselingMaterials.com", "PatriciaAMadden@teleworm.com", "419-916-7859");
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(5, 5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com");
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com");
-    INSERT INTO person (id, role_id, name, company, phone, email)
-           VALUES(7, 7, "Julie C. Stephenson", "LocalTownhouses.com", "859-229-8849", "JulieCStephenson@teleworm.com");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(1, 1, "Ella J. Landry", "NoVacations.com", "479-648-7952", "EllaJLandry@teleworm.com", "ella");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(2, 2, "Ronny G. Rogers", "WallpaperDealer.com", "281-405-3229", "RonnyGRogers@teleworm.com", "ronny");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(3, 3, "Joseph R. Cavitt", "ResidentialIndustry.com", "469-357-1049", "JosephRCavitt@teleworm.com", "joseph");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(4, 4, "Patricia A. Madden", "CounselingMaterials.com", "PatriciaAMadden@teleworm.com", "419-916-7859", "patricia");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(5, 5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com", "timothy");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com", "mary");
+    INSERT INTO person (id, role_id, name, company, phone, email, username)
+           VALUES(7, 7, "Julie C. Stephenson", "LocalTownhouses.com", "859-229-8849", "JulieCStephenson@teleworm.com", "julie");
     
     INSERT INTO project (creator_id, address_1, address_2, city, state, zip)
            VALUES(6, "234 S Tower Dr #2", "", "Beverly Hills", "CA", "90211");
+    INSERT INTO project (creator_id, address_1, address_2, city, state, zip)
+           VALUES(6, "3523 Eagle Lane", "", "Grand Forks", "MN", "58203");
+    INSERT INTO project (creator_id, address_1, address_2, city, state, zip)
+           VALUES(6, "4381 Stout Street", "", "Lancaster", "PA", "17670");
     
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
            VALUES(1, 1, 6, '2011-08-21');
@@ -171,6 +179,28 @@
            VALUES(4, 1, 6, '2011-09-04');
     INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
            VALUES(5, 1, 6, '2011-09-11');
+    
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(1, 2, 6, '2011-08-21');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(2, 2, 6, '2011-09-18');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(3, 2, 6, '2011-08-28');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(4, 2, 6, '2011-09-04');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(5, 2, 6, '2011-09-11');
+    
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(1, 3, 6, '2011-08-21');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(2, 3, 6, '2011-09-18');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(3, 3, 6, '2011-08-28');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(4, 3, 6, '2011-09-04');
+    INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
+           VALUES(5, 3, 6, '2011-09-11');
     
   #+END_SRC
 * TODO Module
@@ -222,9 +252,10 @@
             (json-write
              (sqlite3:map-row
               (lambda (task-type-id responsible-person-id due-date other-name)
-                (let ((type-name
-                       (sqlite3:first-result project-db "SELECT name FROM task_type WHERE id = ?;" task-type-id)))
+                (match-let (((type-name type-description)
+                             (sqlite3:first-row project-db "SELECT name, description FROM task_type WHERE id = ?;" task-type-id)))
                   `#((type-name . ,(void-if-sql-null type-name))
+                     (type-description . ,(void-if-sql-null type-description))
                      (responsible-person-id . ,(void-if-sql-null responsible-person-id))
                      (due-date . ,(void-if-sql-null due-date))
                      (other-name . ,(void-if-sql-null other-name)))))
@@ -269,6 +300,55 @@
     
   #+END_SRC
 
+  #+BEGIN_SRC scheme :tangle user.scm :shebang #!/usr/bin/env chicken-scheme
+    (use call-with-sqlite3-connection
+         vector-lib
+         matchable
+         sql-null
+         call-with-query
+         json)
+    
+    (require-library sqlite3)
+    (import (prefix sqlite3 sqlite3:))
+    
+    (include "escrowsnap.scm")
+    (import escrowsnap)
+    
+    (call-with-project-db
+     (lambda (project-db)
+       (call-with-dynamic-fastcgi-query
+        (lambda (query)
+          (display-content-type-&c. 'text)
+          (let ((username (query-any query 'username))
+                (password (query-any query 'password)))
+            (json-write
+             (sqlite3:map-row
+              (lambda (role-id name company phone email)
+                (match-let*
+                    (((permission-id role-name)
+                      (sqlite3:first-row
+                       project-db
+                       "SELECT permission_id, name FROM role WHERE id = ?"
+                       role-id))
+                     (permission-level
+                      (sqlite3:first-result
+                       project-db
+                       "SELECT level FROM permission WHERE id = ?"
+                       permission-id)))
+                  `#((name . ,(void-if-sql-null name))
+                     (company . ,(void-if-sql-null company))
+                     (phone . ,(void-if-sql-null phone))
+                     (email . ,(void-if-sql-null email))
+                     (role-id . ,(void-if-sql-null role-id))
+                     (role-name . ,(void-if-sql-null role-name))
+                     (permission-id . ,(void-if-sql-null permission-id))
+                     (permission-level . ,(void-if-sql-null permission-level)))))
+              project-db
+              "SELECT role_id, name, company, phone, email FROM person WHERE username = ?;"
+              username)))))))
+    
+  #+END_SRC
+
   #+BEGIN_SRC xml :tangle .htaccess
     Options +ExecCGI +FollowSymLinks
     Order allow,deny
@@ -281,6 +361,7 @@
     RewriteEngine on
     RewriteRule tasks/(.*) tasks.scm?project-id=$1
     RewriteRule projects/(.*) projects.scm?owner-id=$1
+    RewriteRule user/(.*):(.*) user.scm?username=$1&password=$2
     
   #+END_SRC
 
