@@ -40,16 +40,29 @@
          done
          id)
         (match-let*
-            (((task-type-id project-id due-date done)
+            (((responsible-person-id task-type-id project-id due-date done)
               (sqlite3:first-row
                project-db
-               "SELECT task_type_id, project_id, due_date, done FROM task WHERE id = ?"
+               "SELECT responsible_person_id, task_type_id, project_id, due_date, done FROM task WHERE id = ?"
                id))
              ((task-name task-description)
               (sqlite3:first-row
                project-db
                "SELECT name, description FROM task_type WHERE id = ?;"
-               task-type-id)))
-          (debug task-type-id project-id due-date done task-name task-description)
-          (send-sms "+16268172836" "Fuck you."))
+               task-type-id))
+             ((name phone email)
+              (sqlite3:first-row
+               project-db
+               "SELECT name, phone, email FROM person WHERE id = ?;"
+               responsible-person-id)))
+          (send-sms
+           phone
+           (if (zero? done)
+               (format "You better get on ~a, ~a; it's due on ~a!"
+                       task-name
+                       name
+                       due-date)
+               (format "Nice, ~a; you finished ~a!"
+                       name
+                       task-name))))
         (json-write done))))))

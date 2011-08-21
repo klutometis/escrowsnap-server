@@ -125,7 +125,7 @@ INSERT INTO person (id, role_id, name, company, phone, email, username)
 INSERT INTO person (id, role_id, name, company, phone, email, username)
        VALUES(5, 5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com", "timothy");
 INSERT INTO person (id, role_id, name, company, phone, email, username)
-       VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com", "mary");
+       VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "+16268172836", "MaryJDalton@teleworm.com", "mary");
 INSERT INTO person (id, role_id, name, company, phone, email, username)
        VALUES(7, 7, "Julie C. Stephenson", "LocalTownhouses.com", "859-229-8849", "JulieCStephenson@teleworm.com", "julie");
 
