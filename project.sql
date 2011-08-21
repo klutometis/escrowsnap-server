@@ -165,6 +165,6 @@ INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
        VALUES(10, 3, 6, '2011-10-28');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(7, 3, 6, '2011-10-04');
+       VALUES(7, 3, 6, '2011-11-04');
 INSERT INTO task (task_type_id, project_id, responsible_person_id, due_date)
-       VALUES(6, 3, 6, '2011-10-11');
+       VALUES(6, 3, 6, '2011-11-11');
