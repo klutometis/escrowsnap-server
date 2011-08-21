@@ -247,7 +247,7 @@
      (lambda (project-db)
        (call-with-dynamic-fastcgi-query
         (lambda (query)
-          (display-content-type-&c. 'text)
+          (display-content-type-&c. 'json)
           (let ((project-id (query-any query 'project-id)))
             (json-write
              (sqlite3:map-row
@@ -283,7 +283,7 @@
      (lambda (project-db)
        (call-with-dynamic-fastcgi-query
         (lambda (query)
-          (display-content-type-&c. 'text)
+          (display-content-type-&c. 'json)
           (let ((owner-id (query-any query 'owner-id)))
             (json-write
              (sqlite3:map-row
@@ -318,7 +318,7 @@
      (lambda (project-db)
        (call-with-dynamic-fastcgi-query
         (lambda (query)
-          (display-content-type-&c. 'text)
+          (display-content-type-&c. 'json)
           (let ((username (query-any query 'username))
                 (password (query-any query 'password)))
             (json-write

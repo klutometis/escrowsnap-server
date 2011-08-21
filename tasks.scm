@@ -17,7 +17,7 @@
  (lambda (project-db)
    (call-with-dynamic-fastcgi-query
     (lambda (query)
-      (display-content-type-&c. 'text)
+      (display-content-type-&c. 'json)
       (let ((project-id (query-any query 'project-id)))
         (json-write
          (sqlite3:map-row
