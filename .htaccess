@@ -8,6 +8,6 @@ Allow from all
 </Files>
 
 RewriteEngine on
-RewriteRule tasks/(.*) tasks.scm?project-id=$1
-RewriteRule projects/(.*) projects.scm?owner-id=$1
-RewriteRule user/(.*) user.scm?username=$1
+RewriteRule projects/([^/]+)/tasks projects-tasks.scm?project-id=$1
+RewriteRule people/([^/]+)/projects people-projects.scm?owner-id=$1
+RewriteRule people/([^/]+) people.scm?username=$1
