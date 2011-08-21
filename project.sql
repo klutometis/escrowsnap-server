@@ -61,14 +61,14 @@ INSERT INTO permission (id, level) VALUES(1, "Administrator");
 INSERT INTO permission (id, level) VALUES(2, "Contributor");
 INSERT INTO permission (id, level) VALUES(3, "User");
 
-INSERT INTO role (permission_id, name) VALUES(3, "Buyer");
-INSERT INTO role (permission_id, name) VALUES(3, "Seller");
-INSERT INTO role (permission_id, name) VALUES(1, "Buyer Agent");
-INSERT INTO role (permission_id, name) VALUES(1, "Seller Agent");
-INSERT INTO role (permission_id, name) VALUES(1, "Mortgage Broker");
-INSERT INTO role (permission_id, name) VALUES(1, "Escrow Agent");
-INSERT INTO role (permission_id, name) VALUES(1, "Title Agent");
-INSERT INTO role (permission_id, name) VALUES(1, "Other");
+INSERT INTO role (id, permission_id, name) VALUES(1, 3, "Buyer");
+INSERT INTO role (id, permission_id, name) VALUES(2, 3, "Seller");
+INSERT INTO role (id, permission_id, name) VALUES(3, 1, "Buyer Agent");
+INSERT INTO role (id, permission_id, name) VALUES(4, 1, "Seller Agent");
+INSERT INTO role (id, permission_id, name) VALUES(5, 1, "Mortgage Broker");
+INSERT INTO role (id, permission_id, name) VALUES(6, 1, "Escrow Agent");
+INSERT INTO role (id, permission_id, name) VALUES(7, 1, "Title Agent");
+INSERT INTO role (id, permission_id, name) VALUES(8, 1, "Other");
 
 INSERT INTO task_type (id, name) VALUES(1, "Escrow Open Date");
 INSERT INTO task_type (id, name) VALUES(2, "Escrow Period");
@@ -90,18 +90,20 @@ INSERT INTO task_type (id, name) VALUES(17, "City Disclosures");
 INSERT INTO task_type (id, name) VALUES(18, "Termite Inspection Date");
 INSERT INTO task_type (id, name) VALUES(19, "Termite Repair Date");
 
-INSERT INTO person (role_id, name, company, phone, email)
-       VALUES(1, "Ella J. Landry", "NoVacations.com", "479-648-7952", "EllaJLandry@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email)
-       VALUES(2, "Ronny G. Rogers", "WallpaperDealer.com", "281-405-3229", "RonnyGRogers@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email)
-       VALUES(3, "Joseph R. Cavitt", "ResidentialIndustry.com", "469-357-1049", "JosephRCavitt@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email)
-       VALUES(4, "Patricia A. Madden", "CounselingMaterials.com", "PatriciaAMadden@teleworm.com", "419-916-7859");
-INSERT INTO person (role_id, name, company, phone, email)
-       VALUES(5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com");
-INSERT INTO person (role_id, name, company, phone, email)
-       VALUES(6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(1, 1, "Ella J. Landry", "NoVacations.com", "479-648-7952", "EllaJLandry@teleworm.com");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(2, 2, "Ronny G. Rogers", "WallpaperDealer.com", "281-405-3229", "RonnyGRogers@teleworm.com");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(3, 3, "Joseph R. Cavitt", "ResidentialIndustry.com", "469-357-1049", "JosephRCavitt@teleworm.com");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(4, 4, "Patricia A. Madden", "CounselingMaterials.com", "PatriciaAMadden@teleworm.com", "419-916-7859");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(5, 5, "Timothy S. Peters", "RoadSticks.com", "713-309-0478", "TimothySPeters@teleworm.com");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(6, 6, "Mary J. Dalton", "FirmPolicy.com", "323-278-4445", "MaryJDalton@teleworm.com");
+INSERT INTO person (id, role_id, name, company, phone, email)
+       VALUES(7, 7, "Julie C. Stephenson", "LocalTownhouses.com", "859-229-8849", "JulieCStephenson@teleworm.com");
 
 INSERT INTO project (creator_id, address_1, address_2, city, state, zip)
        VALUES(1, "234 S Tower Dr #2", "", "Beverly Hills", "CA", "90211");
