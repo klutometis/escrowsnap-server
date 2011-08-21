@@ -1,0 +1,7 @@
+
+Options +ExecCGI +FollowSymLinks
+Order allow,deny
+Allow from all
+<Files ~ ".scm$">
+  SetHandler fastcgi-script
+</Files>
