@@ -381,8 +381,8 @@
          (Body . ,message))
        read-string))
     
-    (define (send-email email)
-      ())
+    ;; (define (send-email email)
+    ;;   ())
     
     (call-with-project-db
      (lambda (project-db)
@@ -504,7 +504,6 @@
       (let-values
           (((in out process-id)
             (process (format "mail -s \"EscrowSnap Reminder\" -a email.png ~a < email.txt" email))))
-        (debug (read out))
         (close-input-port in)
         (close-output-port out)
         (debug process-id)))

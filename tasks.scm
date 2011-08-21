@@ -27,8 +27,8 @@
      (Body . ,message))
    read-string))
 
-(define (send-email email)
-  ())
+;; (define (send-email email)
+;;   ())
 
 (call-with-project-db
  (lambda (project-db)
