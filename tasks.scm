@@ -17,11 +17,12 @@
  (lambda (project-db)
    (call-with-dynamic-fastcgi-query
     (lambda (query)
-      (display-status-&c.)
+      (display-content-type-&c. 'json)
       (let* ((id (query-any query 'id))
              (done (query-any query 'done)))
         (sqlite3:execute
          project-db
          "UPDATE task SET done = ? WHERE id = ?;"
          done
-         id))))))
+         id)
+        (json-write #t))))))
