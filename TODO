@@ -216,9 +216,13 @@
     Options +ExecCGI +FollowSymLinks
     Order allow,deny
     Allow from all
+    
     <Files ~ ".scm$">
       SetHandler fastcgi-script
     </Files>
+    
+    RewriteEngine on
+    RewriteRule tasks/(.*) tasks.scm?project-id=$1
     
   #+END_SRC
 
@@ -228,3 +232,5 @@
 
   Everybody can see everything; so don't add the party if you don't
   want them to have visibility.
+
+  Gem: nethttp; otherwise, API consumer.
