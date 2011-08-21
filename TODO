@@ -229,7 +229,7 @@
   given project, people and tasks associated with it; for a given
   username, role.
 
-  #+BEGIN_SRC scheme :tangle tasks.scm :shebang #!/usr/bin/env chicken-scheme
+  #+BEGIN_SRC scheme :tangle projects-tasks.scm :shebang #!/usr/bin/env chicken-scheme
     (use call-with-sqlite3-connection
          vector-lib
          matchable
@@ -266,7 +266,7 @@
     
   #+END_SRC
 
-  #+BEGIN_SRC scheme :tangle projects.scm :shebang #!/usr/bin/env chicken-scheme
+  #+BEGIN_SRC scheme :tangle people-projects.scm :shebang #!/usr/bin/env chicken-scheme
     (use call-with-sqlite3-connection
          vector-lib
          matchable
@@ -301,7 +301,7 @@
     
   #+END_SRC
 
-  #+BEGIN_SRC scheme :tangle user.scm :shebang #!/usr/bin/env chicken-scheme
+  #+BEGIN_SRC scheme :tangle people.scm :shebang #!/usr/bin/env chicken-scheme
     (use call-with-sqlite3-connection
          vector-lib
          matchable
@@ -373,3 +373,6 @@
   want them to have visibility.
 
   Gem: nethttp; otherwise, API consumer.
+
+  =projects/<project-id>/tasks=, PUT to: =tasks/<task-id>= for
+  updating.
